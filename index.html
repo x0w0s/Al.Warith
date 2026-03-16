@@ -137,7 +137,7 @@
         <br>
         <button onclick="sendMessage()">إرسال </button>
         <div id="status"></div>
-        <div class="footer">جميع الرسائل مجهولة </div>
+        <div class="footer">  في حال وجود اي خلل تواصل مع القائد </div>
         <div id="cors-warning">⚠️ إذا ظهر خطأ في الإرسال، قد يكون بسبب سياسة الأمان في المتصفح. يمكنك فتح الرابط في تطبيق تليغرام أو استخدام وسيط.</div>
     </div>
 
@@ -153,7 +153,7 @@
             const warningDiv = document.getElementById('cors-warning');
 
             if (message === '') {
-                statusDiv.innerHTML = '❌ الرجاء كتابة المشكلة أولاً.';
+                statusDiv.innerHTML = '❌  اكتب المشكلة أولاً.';
                 statusDiv.style.color = '#ffaaaa';
                 return;
             }
