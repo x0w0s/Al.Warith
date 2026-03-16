@@ -16,12 +16,12 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            /* استبدل رابط الصورة أدناه برابط صورتك المفضلة */
+            /* استبدل الرابط برابط صورتك */
             background: url('https://images.unsplash.com/photo-1506905925346-21bda4d32df4?q=80&w=2070&auto=format&fit=crop') no-repeat center center fixed;
             background-size: cover;
             position: relative;
         }
-        /* طبقة شفافة لتغميق الخلفية قليلاً */
+        /* طبقة شفافة داكنة على الخلفية عشان النص يقرا */
         body::before {
             content: "";
             position: absolute;
@@ -29,21 +29,22 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background-color: rgba(0, 0, 0, 0.5);
+            background-color: rgba(0, 0, 0, 0.4); /* خفيفة */
             z-index: 1;
         }
         .container {
             position: relative;
             z-index: 2;
-            background-color: rgba(255, 255, 255, 0.9);
-            padding: 40px;
+            background: rgba(255, 255, 255, 0.15); /* شفاف جداً */
+            backdrop-filter: blur(12px); /* تأثير الزجاج */
+            -webkit-backdrop-filter: blur(12px);
             border-radius: 30px;
+            padding: 40px;
             width: 90%;
             max-width: 700px;
             text-align: center;
             box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
-            backdrop-filter: blur(8px);
-            border: 1px solid rgba(255, 255, 255, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.3);
             animation: fadeIn 1s ease-in-out;
         }
         @keyframes fadeIn {
@@ -52,39 +53,46 @@
         }
         h1 {
             font-size: 2.5em;
-            color: #1e2a3a;
+            color: white;
             margin-bottom: 10px;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+            text-shadow: 2px 2px 8px black;
         }
         .subtitle {
-            color: #2c3e50;
+            color: #f0f0f0;
             margin-bottom: 30px;
             font-size: 1.2em;
-            border-bottom: 2px solid #3498db;
+            border-bottom: 2px solid rgba(255,255,255,0.5);
             display: inline-block;
             padding-bottom: 8px;
+            text-shadow: 1px 1px 4px black;
         }
         textarea {
             width: 100%;
             height: 300px;
             padding: 20px;
             font-size: 1.2em;
-            border: 2px solid #3498db;
+            border: 2px solid rgba(255,255,255,0.5);
             border-radius: 20px;
             resize: vertical;
             margin-bottom: 25px;
-            background: rgba(255,255,255,0.95);
+            background: rgba(0, 0, 0, 0.3); /* شفاف داكن */
+            color: white;
             outline: none;
             transition: all 0.3s;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.5);
+            backdrop-filter: blur(4px);
+        }
+        textarea::placeholder {
+            color: rgba(255,255,255,0.7);
         }
         textarea:focus {
-            border-color: #2c3e50;
-            box-shadow: 0 8px 20px rgba(52,152,219,0.3);
+            border-color: white;
+            box-shadow: 0 8px 20px rgba(255,255,255,0.2);
             transform: scale(1.01);
+            background: rgba(0, 0, 0, 0.5);
         }
         button {
-            background: linear-gradient(135deg, #3498db, #2c3e50);
+            background: linear-gradient(135deg, #ff8c00, #ff2e00);
             color: white;
             border: none;
             padding: 18px 50px;
@@ -92,14 +100,15 @@
             border-radius: 60px;
             cursor: pointer;
             transition: all 0.3s;
-            box-shadow: 0 10px 25px rgba(52,152,219,0.5);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.5);
             font-weight: bold;
             letter-spacing: 1px;
+            border: 1px solid rgba(255,255,255,0.3);
         }
         button:hover {
-            background: linear-gradient(135deg, #2c3e50, #3498db);
+            background: linear-gradient(135deg, #ff2e00, #ff8c00);
             transform: translateY(-3px);
-            box-shadow: 0 15px 30px rgba(52,152,219,0.7);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.7);
         }
         button:active {
             transform: translateY(0);
@@ -111,19 +120,19 @@
             font-weight: 500;
             padding: 10px;
             border-radius: 10px;
-            color: #2c3e50;
+            color: white;
+            text-shadow: 1px 1px 2px black;
         }
         .footer {
             margin-top: 30px;
             font-size: 1em;
-            color: #555;
+            color: rgba(255,255,255,0.8);
             font-style: italic;
         }
-        /* رسالة تحذير CORS (يمكن إخفاؤها إذا لم تظهر) */
         #cors-warning {
             margin-top: 15px;
             font-size: 0.9em;
-            color: #e67e22;
+            color: #ffaa00;
             display: none;
         }
     </style>
@@ -142,8 +151,8 @@
 
     <script>
         // ****************** إعدادات البوت ******************
-        const BOT_TOKEN = "8532129559:AAGmynX2GrrxowH34J3DuIm3Vh2u_v593uU";  // ضع توكن البوت هنا
-        const CHAT_ID = "7763665935";                                       // ضع معرف المحادثة هنا
+        const BOT_TOKEN = "8532129559:AAGmynX2GrrxowH34J3DuIm3Vh2u_v593uU";  // التوكن
+        const CHAT_ID = "7763665935";                                       // معرف القائد
         // **************************************************
 
         function sendMessage() {
@@ -153,15 +162,14 @@
 
             if (message === '') {
                 statusDiv.innerHTML = '❌ الرجاء كتابة المشكلة أولاً.';
-                statusDiv.style.color = '#e74c3c';
+                statusDiv.style.color = '#ffaaaa';
                 return;
             }
 
             statusDiv.innerHTML = '⏳ جاري الإرسال...';
-            statusDiv.style.color = '#2980b9';
+            statusDiv.style.color = '#ffffff';
             warningDiv.style.display = 'none';
 
-            // إرسال الرسالة إلى تليغرام باستخدام fetch
             const url = `https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`;
             const params = new URLSearchParams({
                 chat_id: CHAT_ID,
@@ -179,12 +187,11 @@
             .then(data => {
                 if (data.ok) {
                     statusDiv.innerHTML = '✅ تم إرسال المشكلة بنجاح!';
-                    statusDiv.style.color = '#27ae60';
+                    statusDiv.style.color = '#aaffaa';
                     document.getElementById('message').value = '';
                 } else {
                     statusDiv.innerHTML = '❌ فشل الإرسال: ' + (data.description || 'خطأ غير معروف');
-                    statusDiv.style.color = '#e74c3c';
-                    // إذا كان الخطأ بسبب CORS، نعرض التحذير
+                    statusDiv.style.color = '#ffaaaa';
                     if (data.error_code === 403 || data.description.includes('CORS')) {
                         warningDiv.style.display = 'block';
                     }
@@ -193,7 +200,7 @@
             .catch(error => {
                 console.error(error);
                 statusDiv.innerHTML = '❌ حدث خطأ في الاتصال. تحقق من اتصالك بالإنترنت أو حاول في تطبيق تليغرام.';
-                statusDiv.style.color = '#e74c3c';
+                statusDiv.style.color = '#ffaaaa';
                 warningDiv.style.display = 'block';
             });
         }
