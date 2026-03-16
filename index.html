@@ -1,99 +1,202 @@
 <!DOCTYPE html>
-<html dir="rtl" lang="ar">
+<html lang="ar" dir="rtl">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>رسالة إلى القائد</title>
     <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; font-family: Arial, sans-serif; }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
         body {
             min-height: 100vh;
             display: flex;
             align-items: center;
             justify-content: center;
-            /* غير الرابط أدناه إلى رابط الصورة التي تريدها */
+            /* استبدل رابط الصورة أدناه برابط صورتك المفضلة */
             background: url('https://images.unsplash.com/photo-1506905925346-21bda4d32df4?q=80&w=2070&auto=format&fit=crop') no-repeat center center fixed;
             background-size: cover;
+            position: relative;
         }
-        .overlay {
-            position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background-color: rgba(0,0,0,0.5);
+        /* طبقة شفافة لتغميق الخلفية قليلاً */
+        body::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
             z-index: 1;
         }
         .container {
             position: relative;
             z-index: 2;
-            background: rgba(255,255,255,0.9);
-            padding: 30px;
-            border-radius: 20px;
+            background-color: rgba(255, 255, 255, 0.9);
+            padding: 40px;
+            border-radius: 30px;
             width: 90%;
-            max-width: 600px;
+            max-width: 700px;
             text-align: center;
-            backdrop-filter: blur(5px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+            backdrop-filter: blur(8px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            animation: fadeIn 1s ease-in-out;
         }
-        h1 { color: #2c3e50; margin-bottom: 15px; }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        h1 {
+            font-size: 2.5em;
+            color: #1e2a3a;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+        }
+        .subtitle {
+            color: #2c3e50;
+            margin-bottom: 30px;
+            font-size: 1.2em;
+            border-bottom: 2px solid #3498db;
+            display: inline-block;
+            padding-bottom: 8px;
+        }
         textarea {
             width: 100%;
-            height: 250px;
-            padding: 15px;
+            height: 300px;
+            padding: 20px;
             font-size: 1.2em;
             border: 2px solid #3498db;
-            border-radius: 10px;
-            margin: 20px 0;
+            border-radius: 20px;
+            resize: vertical;
+            margin-bottom: 25px;
+            background: rgba(255,255,255,0.95);
+            outline: none;
+            transition: all 0.3s;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        textarea:focus {
+            border-color: #2c3e50;
+            box-shadow: 0 8px 20px rgba(52,152,219,0.3);
+            transform: scale(1.01);
         }
         button {
-            background: #3498db;
+            background: linear-gradient(135deg, #3498db, #2c3e50);
             color: white;
             border: none;
-            padding: 15px 40px;
-            font-size: 1.2em;
-            border-radius: 40px;
+            padding: 18px 50px;
+            font-size: 1.3em;
+            border-radius: 60px;
             cursor: pointer;
+            transition: all 0.3s;
+            box-shadow: 0 10px 25px rgba(52,152,219,0.5);
+            font-weight: bold;
+            letter-spacing: 1px;
         }
-        button:hover { background: #2c3e50; }
-        #status { margin-top: 15px; font-size: 1.1em; }
+        button:hover {
+            background: linear-gradient(135deg, #2c3e50, #3498db);
+            transform: translateY(-3px);
+            box-shadow: 0 15px 30px rgba(52,152,219,0.7);
+        }
+        button:active {
+            transform: translateY(0);
+        }
+        #status {
+            margin-top: 25px;
+            font-size: 1.2em;
+            min-height: 40px;
+            font-weight: 500;
+            padding: 10px;
+            border-radius: 10px;
+            color: #2c3e50;
+        }
+        .footer {
+            margin-top: 30px;
+            font-size: 1em;
+            color: #555;
+            font-style: italic;
+        }
+        /* رسالة تحذير CORS (يمكن إخفاؤها إذا لم تظهر) */
+        #cors-warning {
+            margin-top: 15px;
+            font-size: 0.9em;
+            color: #e67e22;
+            display: none;
+        }
     </style>
 </head>
 <body>
-    <div class="overlay"></div>
     <div class="container">
         <h1>📬 رسالة إلى القائد</h1>
-        <p>اكتب مشكلتك (بدون اسم) وسيتم إرسالها فوراً</p>
-        <textarea id="msg" placeholder="مشكلتك هنا..."></textarea>
+        <p class="subtitle">اكتب مشكلتك وسيتم إرسالها فوراً دون ذكر اسمك</p>
+        <textarea id="message" placeholder="اكتب مشكلتك هنا..."></textarea>
         <br>
-        <button onclick="send()">إرسال</button>
+        <button onclick="sendMessage()">إرسال المشكلة</button>
         <div id="status"></div>
+        <div class="footer">جميع الرسائل مجهولة المصدر</div>
+        <div id="cors-warning">⚠️ إذا ظهر خطأ في الإرسال، قد يكون بسبب سياسة الأمان في المتصفح. يمكنك فتح الرابط في تطبيق تليغرام أو استخدام وسيط.</div>
     </div>
 
     <script>
-    function send() {
-        let msg = document.getElementById('msg').value.trim();
-        let status = document.getElementById('status');
-        if (msg === '') {
-            status.innerHTML = '❌ اكتب شيئاً';
-            return;
-        }
-        status.innerHTML = '⏳ جاري الإرسال...';
-        
-        fetch('send.php', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-            body: 'message=' + encodeURIComponent(msg)
-        })
-        .then(r => r.json())
-        .then(d => {
-            if (d.success) {
-                status.innerHTML = '✅ تم الإرسال';
-                document.getElementById('msg').value = '';
-            } else {
-                status.innerHTML = '❌ خطأ: ' + d.error;
+        // ****************** إعدادات البوت ******************
+        const BOT_TOKEN = "8532129559:AAGmynX2GrrxowH34J3DuIm3Vh2u_v593uU";  // ضع توكن البوت هنا
+        const CHAT_ID = "7763665935";                                       // ضع معرف المحادثة هنا
+        // **************************************************
+
+        function sendMessage() {
+            const message = document.getElementById('message').value.trim();
+            const statusDiv = document.getElementById('status');
+            const warningDiv = document.getElementById('cors-warning');
+
+            if (message === '') {
+                statusDiv.innerHTML = '❌ الرجاء كتابة المشكلة أولاً.';
+                statusDiv.style.color = '#e74c3c';
+                return;
             }
-        })
-        .catch(e => {
-            status.innerHTML = '❌ فشل الاتصال';
-        });
-    }
+
+            statusDiv.innerHTML = '⏳ جاري الإرسال...';
+            statusDiv.style.color = '#2980b9';
+            warningDiv.style.display = 'none';
+
+            // إرسال الرسالة إلى تليغرام باستخدام fetch
+            const url = `https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`;
+            const params = new URLSearchParams({
+                chat_id: CHAT_ID,
+                text: "📩 رسالة جديدة من أحد الشباب (مجهول):\n\n" + message
+            });
+
+            fetch(url, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded',
+                },
+                body: params.toString()
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.ok) {
+                    statusDiv.innerHTML = '✅ تم إرسال المشكلة بنجاح!';
+                    statusDiv.style.color = '#27ae60';
+                    document.getElementById('message').value = '';
+                } else {
+                    statusDiv.innerHTML = '❌ فشل الإرسال: ' + (data.description || 'خطأ غير معروف');
+                    statusDiv.style.color = '#e74c3c';
+                    // إذا كان الخطأ بسبب CORS، نعرض التحذير
+                    if (data.error_code === 403 || data.description.includes('CORS')) {
+                        warningDiv.style.display = 'block';
+                    }
+                }
+            })
+            .catch(error => {
+                console.error(error);
+                statusDiv.innerHTML = '❌ حدث خطأ في الاتصال. تحقق من اتصالك بالإنترنت أو حاول في تطبيق تليغرام.';
+                statusDiv.style.color = '#e74c3c';
+                warningDiv.style.display = 'block';
+            });
+        }
     </script>
 </body>
 </html>
