@@ -131,13 +131,13 @@
 </head>
 <body>
     <div class="container">
-        <h1>📬 رسالة إلى القائد</h1>
+        <h1>📬 رساله الى القائد وسام </h1>
         <p class="subtitle">اكتب مشكلتك وسيتم إرسالها فوراً دون ذكر اسمك</p>
         <textarea id="message" placeholder="اكتب مشكلتك هنا..."></textarea>
         <br>
-        <button onclick="sendMessage()">إرسال المشكلة</button>
+        <button onclick="sendMessage()">إرسال </button>
         <div id="status"></div>
-        <div class="footer">جميع الرسائل مجهولة المصدر</div>
+        <div class="footer">جميع الرسائل مجهولة </div>
         <div id="cors-warning">⚠️ إذا ظهر خطأ في الإرسال، قد يكون بسبب سياسة الأمان في المتصفح. يمكنك فتح الرابط في تطبيق تليغرام أو استخدام وسيط.</div>
     </div>
 
@@ -158,14 +158,14 @@
                 return;
             }
 
-            statusDiv.innerHTML = '⏳ جاري الإرسال...';
+            statusDiv.innerHTML = '⏳ اصبر ...';
             statusDiv.style.color = '#ffffff';
             warningDiv.style.display = 'none';
 
             const url = `https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`;
             const params = new URLSearchParams({
                 chat_id: CHAT_ID,
-                text: "📩 رسالة جديدة من أحد الشباب (مجهول):\n\n" + message
+                text: "📩 رسالة جديدة من أحد الشباب :\n\n" + message
             });
 
             fetch(url, {
